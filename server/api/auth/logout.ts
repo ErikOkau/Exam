@@ -36,6 +36,9 @@ export default defineEventHandler(async (event) => {
         status: 200,
         body: {
             message: "Successfully logged out"
+        },
+        headers: {
+            'Set-Cookie': `Authorization=; Path=/; Expires=${new Date().toUTCString()}; HttpOnly; SameSite=Lax; Secure`
         }
     }
 })
