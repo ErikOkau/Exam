@@ -23,6 +23,8 @@ async function onSubmit() {
         window.location.reload()
     } else if (data.status === 401) {
         alert('Wrong email or password')
+    } else {
+        alert('Something went wrong')
     }
 }
 
