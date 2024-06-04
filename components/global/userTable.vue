@@ -1,13 +1,20 @@
 <script setup lang="ts">
 
-onMounted(async () => {
-    const res = await fetch('/api/users/getUsers')
-    const data = await res.json()
-
-    users.value = data.users
+const props = defineProps({
+    usersProp: Array
 })
-
 const users = ref([])
+// const users = ref(props.usersProp)
+
+// onMounted(() => {
+//     users.value = props.usersProp
+// })
+
+
+watch(() => props.usersProp, (newVal) => {
+    users.value = newVal
+    console.log('users', users.value)
+}, { immediate: true })
 
 const deleteUser = async (user) => {
     await fetch(`/api/users/deleteUser`, {
