@@ -7,23 +7,10 @@ export default defineEventHandler(async (event) => {
     if (parsed == null) {
       setCookie(event, "Authorization", "", { expires: new Date() })
       setCookie(event, "LoggedIn", "", { expires: new Date() })
-      return {
-        status: 302,
-        headers: {
-          location: "/login",
-        },
-      }
     }
     setCookie(event, "Authorization", await encrypt(parsed), {
       expires: expires(7),
       httpOnly: true,
     })
-  } else {
-    return {
-      status: 302,
-      headers: {
-        location: "/login",
-      },
-    }
   }
 })

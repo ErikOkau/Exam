@@ -1,6 +1,5 @@
 import { prisma } from "~/server/server"
 import { decrypt, encrypt, expires } from "../../utils/auth"
-import { SignJWT, jwtVerify } from "jose"
 
 // login using prisma
 export default defineEventHandler(async (event) => {

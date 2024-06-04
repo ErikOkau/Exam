@@ -6,7 +6,16 @@ const password = ref('')
 const router = useRouter()
 
 async function onSubmit() {
-    
+    const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    })
 }
 
 </script>
@@ -22,15 +31,4 @@ async function onSubmit() {
 </template>
 
 
-<style scoped lang="scss">
-h5 {
-    margin-bottom: 1rem;
-}
-
-html,
-body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-}
-</style>
+<style scoped lang="scss"></style>

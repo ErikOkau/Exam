@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 const secret = "secret"
 const key = new TextEncoder().encode(secret)
 
-export const expires = (days: number) => new Date(Date.now() + 1000 * 60 * 60 * days)
+export const expires = (days: number) => new Date(Date.now() + 1000 * 60 * 60 * 24 * days)
 
 export async function encrypt(payload: any) {
     return await new SignJWT(payload)
