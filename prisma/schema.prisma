@@ -39,11 +39,11 @@ model Article {
   updatedAt DateTime @updatedAt
 }
 
-model Author {
-  id        String   @id @default(cuid())
-  name      String
-  bio       String
+// model Author {
+//   id        String   @id @default(cuid())
+//   name      String
+//   bio       String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }

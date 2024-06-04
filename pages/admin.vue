@@ -24,16 +24,27 @@ async function onSubmit() {
     }
 }
 
+
+
+
+
 </script>
 
 <template>
     <div class="full-width row items-center justify-center">
         <QForm @submit="onSubmit" class="q-gutter-md" style="min-width: 30rem; margin-top: 5rem;">
             <h5>Register</h5>
-            <QInput class="inset-shadow-down" outlined v-model="email" label="Email" />
-            <QInput class="inset-shadow-down" outlined v-model="password" label="Password" type="password" />
-            <QSelect class="inset-shadow-down" outlined v-model="role" :options="['ADMINISTRASJON', 'MONTOR', 'SALG']"
-                label="Role" />
+            <QInput filled v-model="email" label="Email">
+                <template v-slot:append>
+                    <QIcon name="close" @click="email = ''" class="cursor-pointer" />
+                </template>
+            </QInput>
+            <QInput filled v-model="password" label="Password" type="password" >
+                <template v-slot:append>
+                    <QIcon name="close" @click="password = ''" class="cursor-pointer" />
+                </template>
+            </QInput>
+            <QSelect filled v-model="role" :options="['ADMINISTRASJON', 'MONTOR', 'SALG']" label="Role" />
             <QBtn label="Submit" type="submit" color="secondary" />
         </QForm>
     </div>
