@@ -8,7 +8,6 @@ const search = ref()
         :article="{
             title: 'title',
             content: 'content'
-            
         }" 
         :search="search"
     />

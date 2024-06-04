@@ -6,16 +6,6 @@ const email = ref('')
 const password = ref('')
 const role = ref('')
 
-const users = ref([]);
-
-onMounted(async () => {
-    const res = await fetch('/api/users/getUsers');
-    const data = await res.json();
-
-    console.log(data);  // Add this line
-    users.value = data.users;
-});
-
 const router = useRouter()
 async function onSubmit() {
     const response = await fetch('/api/auth/register', {
@@ -47,7 +37,7 @@ async function onSubmit() {
                     <QIcon name="close" @click="email = ''" class="cursor-pointer" />
                 </template>
             </QInput>
-            <QInput filled v-model="password" label="Password" type="password">
+            <QInput filled v-model="password" label="Password" type="password" >
                 <template v-slot:append>
                     <QIcon name="close" @click="password = ''" class="cursor-pointer" />
                 </template>
@@ -60,7 +50,7 @@ async function onSubmit() {
     <!--Delete a user-->
     <div class="full-width row items-center justify-center">
         <QLayout class="q-ml-xl q-mr-xl">
-            <UserTable v-if="users.length" :usersProp="users"  />
+            <UserTable />
         </QLayout>
     </div>
 </template>
