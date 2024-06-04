@@ -11,7 +11,8 @@ type typeRoleAllowedPaths = {
 // Pages that different roles can access
 const rolePages: typeRoleAllowedPaths = {
     ADMINISTRASJON: [
-        "/artikkel/newArticle"
+        "/artikkel/newArticle",
+        "/admin"
     ],
     MONTOR: [
         "/artikkel/newArticle"
@@ -26,8 +27,8 @@ const noAuthPages: Path[] = [
     "/login", 
     "/", 
     "/artikkel", 
-    "/artikkel/allArticles",
-    /\/artikkel\/id-\d+/
+    "/artikkel/articles",
+    /\/artikkel\/id-\d+/,
 ]
 
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Role, type User } from '@prisma/client';
+import UserTable from '~/components/global/userTable.vue';
 
 const email = ref('')
 const password = ref('')
@@ -24,13 +25,10 @@ async function onSubmit() {
     }
 }
 
-
-
-
-
 </script>
 
 <template>
+    <!--Create a user-->
     <div class="full-width row items-center justify-center">
         <QForm @submit="onSubmit" class="q-gutter-md" style="min-width: 30rem; margin-top: 5rem;">
             <h5>Register</h5>
@@ -47,6 +45,13 @@ async function onSubmit() {
             <QSelect filled v-model="role" :options="['ADMINISTRASJON', 'MONTOR', 'SALG']" label="Role" />
             <QBtn label="Submit" type="submit" color="secondary" />
         </QForm>
+    </div>
+
+    <!--Delete a user-->
+    <div class="full-width row items-center justify-center">
+        <QLayout class="q-ml-xl q-mr-xl">
+            <UserTable />
+        </QLayout>
     </div>
 </template>
 

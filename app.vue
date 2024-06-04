@@ -7,7 +7,7 @@ const breadcrumbs = computed(() => {
 
   return pathList.map((path) => {
     if (path == "artikkel/newArticle") return { path: "Article", name: path }
-    if (path == "artikkel/allArticles") return { path: "allArticles", name: path }
+    if (path == "artikkel/articles") return { path: "Articles", name: path }
 
     return { path, name: path }
   })
@@ -15,7 +15,7 @@ const breadcrumbs = computed(() => {
 
 const listItems = [
   { name: " Ny artikkel", caption: "Lag ny artikkel", path: "/artikkel/newArticle"},
-  { name: " Alle artikler", caption: "Viser alle artikler", path: "/artikkel/allArticles"}
+  { name: " Alle artikler", caption: "Viser alle artikler", path: "/artikkel/articles"}
 ]
 
 
