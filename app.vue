@@ -13,7 +13,7 @@ const breadcrumbs = computed(() => {
 })
 
 const listItems = [
-  { name: "Artikkel", caption: "Lag ny artikkel", path: "/artikkel/newArticle"},
+  { name: " Ny artikkel", caption: "Lag ny artikkel", path: "/artikkel/newArticle"},
 ]
 
 

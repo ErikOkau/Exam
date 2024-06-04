@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   modules: ["nuxt-quasar-ui"],
   quasar: {
     plugins: [
-      "Notify"
+      "Notify",
+      "Dialog"
     ],
     config: {
       brand: {
