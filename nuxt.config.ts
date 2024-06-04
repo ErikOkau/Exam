@@ -4,6 +4,9 @@ export default defineNuxtConfig({
 
   modules: ["nuxt-quasar-ui"],
   quasar: {
+    plugins: [
+      "Notify"
+    ],
     config: {
       brand: {
         primary: "#ffffff",

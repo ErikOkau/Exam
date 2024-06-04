@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 
+
 const email = ref('')
 const password = ref('')
 const router = useRouter()
@@ -16,11 +17,15 @@ async function onSubmit() {
             password: password.value
         })
     })
+    const data = await response.json()
+    if (data.status === 200) {
+        router.push('/')
+    }
 }
 
 </script>
 <template>
-    <QForm @submit="onSubmit" class="q-gutter-md q-ml-xl" style="max-width: 15rem;">
+    <QForm @submit="onSubmit" class="q-gutter-md q-ml-xl q-mt-lg" style="max-width: 15rem;">
         <h5>Login</h5>
         <QInput class="inset-shadow-down" outlined v-model="email" label="Email" />
         <QInput class="inset-shadow-down" outlined v-model="password" label="Password" type="password" />
