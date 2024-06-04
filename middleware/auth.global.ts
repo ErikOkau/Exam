@@ -4,7 +4,6 @@ const noAuthPages = [
     "/login",
     "/",
     "/artikkel/newArticle",
-    "/artikkel",
     "/admin"
 ]
 
