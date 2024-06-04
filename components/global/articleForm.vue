@@ -19,10 +19,6 @@ async function areYouSure() {
 
 }
 
-async function confirmPostArticle() {
-    await postArticle()
-}
-
 async function postArticle() {
     const response = await fetch('/api/article/newArticle', {
         method: 'POST',
@@ -46,6 +42,10 @@ async function postArticle() {
     } else {
         alert('Something went wrong')
     }
+}
+
+async function confirmPostArticle() {
+    await postArticle()
 }
 
 </script>
