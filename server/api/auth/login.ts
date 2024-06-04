@@ -1,6 +1,6 @@
 import { prisma } from "~/server/server"
 import { decrypt, encrypt, expires } from "../../utils/auth"
-
+    
 // login using prisma
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)

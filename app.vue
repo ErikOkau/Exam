@@ -5,14 +5,14 @@ const breadcrumbs = computed(() => {
   const pathList = route.fullPath.split("/").filter(Boolean)
 
   return pathList.map((path) => {
-    if (path == "a") return { path: "Artikkel", name: path }
+    if (path == "artikkel/newArticle") return { path: "Artikkel", name: path }
 
     return { path, name: path }
   })
 })
 
 const listItems = [
-  { name: "Artikkel", caption: "Se artikler", path: "/a"},
+  { name: "Artikkel", caption: "Se artikler", path: "/artikkel/newArticle"},
 ]
 </script>
 

@@ -3,6 +3,7 @@ import type { Role } from "@prisma/client"
 const noAuthPages = [
     "/login",
     "/",
+    "/artikkel/newArticle",
     "/artikkel",
     "/admin"
 ]
