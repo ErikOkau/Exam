@@ -19,7 +19,12 @@ async function onSubmit() {
     })
     const data = await response.json()
     if (data.status === 200) {
-        router.push('/')
+        await router.push('/')
+
+        window.location.reload()
+    } 
+    if (data.status === 401) {
+        alert('Wrong email or password')
     }
 }
 
