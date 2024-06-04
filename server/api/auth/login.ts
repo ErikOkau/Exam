@@ -1,24 +1,33 @@
+import { encrypt } from "~/server/utils/auth"
 import { prisma } from "~/server/server"
-import { decrypt, encrypt, expires } from "../../utils/auth"
-    
-// login using prisma
-export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
+import { expires } from "~/server/utils/auth"
+import { sha256 } from "~/server/utils/hash"
 
-    const { username, password } = body as { username: string, password: string }
-    
-    const user = await prisma.user.findUnique({
-        where: {
-            email: body.email,
-            password: body.password
-        }
-    })
-    if (user == null) {
-        return {
-            status: 401,
-            body: {
-                error: "Invalid email or password"
-            }
-        }
-    }
+export default defineEventHandler(async (event) => {
+  console.log("login")
+  const body = await readBody(event)
+  if (!body) return setResponseStatus(event, 400)
+  const hashPassword = sha256(body.password)
+  const user = await prisma.user.findUnique({
+    where: {
+      email: body.email,
+    },
+  })
+
+  if (!user) return { status: 404, msg: "Wrong email" }
+  if (user?.password !== hashPassword)
+    return { status: 401, msg: "Wrong password" }
+
+  const session = await encrypt({
+    id: user?.id,
+    expires: expires(7),
+    role: user.role,
+  })
+
+  setCookie(event, "Authorization", session, {
+    expires: expires(7),
+    httpOnly: true,
+  })
+  setCookie(event, "LoggedIn", "True", { expires: expires(7) })
+  return { status: 200, msg: "Success" }
 })

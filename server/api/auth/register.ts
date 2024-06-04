@@ -1,27 +1,29 @@
 import { prisma } from "~/server/server"
-import { decrypt, encrypt, expires } from "../../utils/auth"
-import { SignJWT, jwtVerify } from "jose"
+import { encrypt, expires } from "~/server/utils/auth"
+import { sha256 } from "~/server/utils/hash"
 
-// register using prisma
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
+  const body = await readBody(event)
+  if (!body) return setResponseStatus(event, 400)
 
-    const { email, password, role } = body as { email: string, password: string, role: string }
-    
-    const user = await prisma.user.create({
-        data: {
-            email: body.email,
-            password: body.password,
-            role: body.role
-        }
+  const user = await prisma.user.findUnique({
+    where: {
+      email: body.email,
+    },
+  })
+
+  if (user) return { status: 409, msg: "User already exists" }
+  const hashPassword = sha256(body.password)
+
+  const newUser = await prisma.user
+    .create({
+      data: {
+        email: body.email,
+        password: hashPassword,
+        role: body.role,
+      },
     })
-    
-    const token = await encrypt({ id: user.id })
-    
-    return {
-        status: 200,
-        body: {
-            token
-        }
-    }
+    .catch(() => null)
+  if (!newUser) return { status: 500, msg: "Internal server error" }
+  return { status: 201, msg: "User created" }
 })

@@ -34,7 +34,7 @@ const listItems = [
     <QHeader elevated class="bg-secondary text-white">
       <QToolbar inset>
         <QToolbarTitle class="row items-center">
-          Exam
+          Solcellespesialisten
 
           <QBreadcrumbs active-color="white" style="font-size: 16px; margin-left: 10rem;">
             <QBreadcrumbsEl label="Home" icon="home" to="/" />

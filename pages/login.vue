@@ -20,14 +20,12 @@ async function onSubmit() {
 
 </script>
 <template>
-    <QLayout class="column q-ml-xl" style="max-width: 15rem;">
+    <QForm @submit="onSubmit" class="q-gutter-md q-ml-xl" style="max-width: 15rem;">
         <h5>Login</h5>
-        <QForm @submit="onSubmit" class="q-gutter-md">
-            <QInput class="inset-shadow-down" outlined v-model="email" label="Email" />
-            <QInput class="inset-shadow-down" outlined v-model="password" label="Password" type="password" />
-            <QBtn label="Submit" type="submit" color="secondary" />
-        </QForm>
-    </QLayout>
+        <QInput class="inset-shadow-down" outlined v-model="email" label="Email" />
+        <QInput class="inset-shadow-down" outlined v-model="password" label="Password" type="password" />
+        <QBtn label="Submit" type="submit" color="secondary" />
+    </QForm>
 </template>
 
 
