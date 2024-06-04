@@ -13,6 +13,7 @@ onMounted(async () => {
       throw new Error('Failed to fetch articles');
     }
     articles.value = await response.json();
+    console.log(articles.value)
   } catch (error) {
     Notify.create({
       message: error.message,
