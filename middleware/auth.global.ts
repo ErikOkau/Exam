@@ -21,7 +21,7 @@ const rolePages: typeRoleAllowedPaths = {
     ],
 }
 
-// Everyone can access
+// Pages everyone can access
 const noAuthPages: Path[] = [
     "/login", 
     "/", 
