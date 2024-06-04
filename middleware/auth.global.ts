@@ -32,35 +32,58 @@ const noAuthPages: Path[] = [
 
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  // Stops running on server-side
-  if (process.server) return
+    // Stops running on server-side
+    if (process.server) return
 
-  // Return if not requires auth on page 
-  const noAuthCheck = noAuthPages.find((path) => {
-    if (typeof path === "string") {
-      return to.path === path
+    console.log(to.path, from.path)
+
+    // If the page does not require authentication, return
+    const noAuthCheck = noAuthPages.find((path) => {
+        if (typeof path === "string") {
+            return to.path === path
+        }
+        return path.test(to.path)
+    })
+    if (noAuthCheck) return
+
+    // Fetch the user role
+    const res = (await $fetch("/api/auth/decrypt")) as {
+        status: number
+        msg: string
+        role: Role
     }
-    return path.test(to.path)
-  })
+    if (res.status !== 200) return navigateTo("/login")
+    const allowedRoutes = rolePages[res.role]
 
-  if (noAuthCheck) return
+    // If the user is not allowed to access the page, redirect to the home page
 
-  // Fetch user role
-  const res = (await $fetch("/api/auth/decrypt")) as {
-    status: Number
-    role: Role
-  }
-  if (res.status !== 200) return navigateTo("/login")
-  const allowedRoutes = rolePages[res.role] as string[]
+    const fromNoAuthCheck = noAuthPages.find((path) => {
+        if (typeof path === "string") {
+       return from.path === path
+        }
+        return path.test(from.path)
+    })
 
-  // Redirect to the home page if user not allowed on page
-  if (noAuthCheck) {
-    if (!allowedRoutes.includes(from.path)) {
-      return navigateTo("/")
+    if (!fromNoAuthCheck) {
+        const fromAuthCheck = allowedRoutes.find((path) => {
+            if (typeof path === "string") {
+                return from.path === path
+            }
+            return path.test(from.path)
+        })
+        if (!fromAuthCheck) {
+            return navigateTo("/")
+        }
     }
-  }
-  if (!allowedRoutes.includes(to.path)) {
-    console.log("Not allowed abourt")
-    return abortNavigation()
-  }
+    const toAuthCheck = allowedRoutes.find((path) => {
+        if (typeof path === "string") {
+            return to.path === path
+        }
+        return path.test(to.path)
+    })
+
+    if (!toAuthCheck) {
+        console.log("Not allowed abourt")
+        return abortNavigation()
+    }
 })
