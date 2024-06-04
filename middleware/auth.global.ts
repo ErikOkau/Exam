@@ -26,6 +26,7 @@ const noAuthPages: Path[] = [
     "/login", 
     "/", 
     "/artikkel", 
+    "/artikkel/allArticles",
     /\/artikkel\/id-\d+/
 ]
 
