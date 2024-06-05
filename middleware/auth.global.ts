@@ -24,11 +24,10 @@ const rolePages: typeRoleAllowedPaths = {
 
 // Pages everyone can access
 const noAuthPages: Path[] = [
-    "/login", 
     "/", 
+    "/login", 
     "/artikkel", 
     "/artikkel/articles",
-    /\/artikkel\/id-\d+/,
 ]
 
 
@@ -53,11 +52,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         msg: string
         role: Role
     }
-    if (res.status !== 200) return navigateTo("/login")
+    if (res.status !== 200) return navigateTo("/")
     const allowedRoutes = rolePages[res.role]
 
-    // If the user is not allowed to access the page, redirect to the home page
 
+    
+    // If the user is not allowed to access the page, redirect to the home page
     const fromNoAuthCheck = noAuthPages.find((path) => {
         if (typeof path === "string") {
        return from.path === path
@@ -76,6 +76,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             return navigateTo("/")
         }
     }
+    
     const toAuthCheck = allowedRoutes.find((path) => {
         if (typeof path === "string") {
             return to.path === path

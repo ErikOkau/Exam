@@ -6,16 +6,16 @@ const breadcrumbs = computed(() => {
   const pathList = route.fullPath.split("/").filter(Boolean)
 
   return pathList.map((path) => {
-    if (path == "artikkel/newArticle") return { path: "Article", name: path }
     if (path == "artikkel/articles") return { path: "Articles", name: path }
+    if (path == "artikkel/newArticle") return { path: "Article", name: path }
 
     return { path, name: path }
   })
 })
 
 const listItems = [
-  { name: " Ny artikkel", caption: "Lag ny artikkel", path: "/artikkel/newArticle"},
-  { name: " Alle artikler", caption: "Viser alle artikler", path: "/artikkel/articles"}
+  { name: " Alle artikler", caption: "Viser alle artikler", path: "/artikkel/articles"},
+  { name: " Ny artikkel", caption: "Lag ny artikkel", path: "/artikkel/newArticle"}
 ]
 
 
@@ -81,7 +81,7 @@ onMounted(async () => {
 
           <!--Logout button-->
           <QBtn flat round dense icon="logout" class="q-ml-md" @click="logout" style="margin-left: auto;" v-if="loggedIn">Logout</QBtn>
-
+          <QBtn to="/login" flat round dense icon="login" class="q-ml-md" style="margin-left: auto;" v-if="!loggedIn">Login</QBtn>
         </QToolbarTitle>
       </QToolbar>
     </QHeader>
