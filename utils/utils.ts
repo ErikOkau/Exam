@@ -18,7 +18,7 @@ export function highlightSearch(text: string, searchTerm: string) {
     return {
         html:
             before +
-            '<span class="bg-yellow-7 text-black">' +
+            '<span class="bg-blue-7 text-black">' +
             match +
             "</span>" +
             after,

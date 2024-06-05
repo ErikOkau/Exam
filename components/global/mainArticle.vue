@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { type Article } from '@prisma/client';
+
 
 const props = defineProps<{
   article: Article;
@@ -20,12 +22,14 @@ const titleEl = computed(() => {
 })
 
 const show = ref(true)
+
 </script>
 
 <template>
-<div v-show="show">
-    <div v-html="titleEl"></div>
-    <div>{{ article.content }}</div>
+<div v-show="show" class="q-mt-md">
+    <div v-html="titleEl" style="font-size: 1.75rem; color: blue; "></div>
+    <div style="font-size: 1.2rem;">{{ article.content }}</div>
+
 </div>
 </template>
 

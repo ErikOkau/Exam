@@ -1,13 +1,17 @@
 import { prisma } from '~/server/server'
 
 export default defineEventHandler(async (event) => {
-  // Get the article ID from the URL
-  const { articleId } = event.pathParameters
+  const body = await readBody(event)
 
-  // Delete the article
-  await prisma.article.delete({
-    where: { id: articleId },
+  const deleteArticle = await prisma.article.delete({
+      where: {
+          id: body.id,
+      }
   })
 
-  return { status: 204 }
+  if (!deleteArticle) {
+      return { status: 404, msg: "Article not found"}
+  }
+
+  return { status: 200, msg: "Article deleted"}
 })
