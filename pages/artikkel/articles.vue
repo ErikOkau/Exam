@@ -62,6 +62,8 @@ async function updateArticle(articleId: any) {
     })
     if (response.ok) {
         console.log('Article updated')
+
+        window.location.reload()
     } else {
         console.log('Error updating article')
     }
