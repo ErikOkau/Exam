@@ -7,7 +7,11 @@ export default defineEventHandler(async (event) => {
     where: {
       id: body.id,
     },
-    data: body.data,
+    data: {
+      email: body.email,
+      password: body.password,
+      role: body.role,
+    },
   })
 
   if (!updateResult) {

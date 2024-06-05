@@ -12,4 +12,10 @@ export default defineEventHandler(async (event) => {
             content: body.content,
         }
     })
+
+    if (!updateArticle) {
+        return { status: 404, msg: "Article not found" }
+    }
+
+    return { status: 200, msg: "User updated", user: updateArticle }
 })

@@ -6,6 +6,8 @@ const search = ref()
 const email = ref('')
 const password = ref('')
 const role = ref('')
+const editRef = ref(false)
+
 const router = useRouter()
 
 // Create a user
@@ -54,6 +56,50 @@ async function deleteUser(userId: any) {
     }
 }
 
+async function updateUser(userId: any) {
+    const response = await fetch(`/api/users/updateUser`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: userId,
+            email: users.value.find(user => user.id === userId)?.email,
+            password: users.value.find(user => user.id === userId)?.password,
+            role: users.value.find(user => user.id === userId)?.role
+        })
+    })
+    if (response.ok) {
+        console.log('User updated')
+        window.location.reload()
+    } else {
+        console.log('Error updating user')
+    }
+}
+
+
+const loggedIn = ref(false)
+// Check if user is logged in
+onMounted(async () => {
+    const response = await $fetch('/api/auth/decrypt', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    if (response.status === 200) {
+        loggedIn.value = true
+    } else {
+        loggedIn.value = false
+    }
+})
+
+// watch if role changes
+watch(users, () => {
+    if (users.value.find(user => user.role !== 'ADMINISTRASJON')) {
+        router.push('/')
+    }
+})
 </script>
 
 <template>
@@ -86,7 +132,16 @@ async function deleteUser(userId: any) {
             
                 style="min-width: 50rem;" />
 
-            <QBtn dense style="max-height: 2.5rem; margin-top: 2rem;" @click="deleteUser(user.id)">Delete</QBtn>
+                
+            <QBtn dense style="max-height: 2.5rem; margin-top: 2rem;" @click="editRef = true" color="blue">Edit</QBtn>
+            <div v-if="editRef" style="display: flex; flex-direction: column; max-width: 10rem;" class="q-ma-md">
+                <QInput v-model="user.email" label="Email" />
+                <QInput v-model="user.password" label="Password" />
+                <QSelect v-model="user.role" label="Role" :options="['ADMINISTRASJON', 'MONTOR', 'SALG']" />
+
+                <QBtn label="Submit" type="submit" color="secondary" @click="updateUser(user.id)" />
+            </div>
+            <QBtn dense style="max-height: 2.5rem; margin-top: 2rem;" @click="deleteUser(user.id)" color="red">Delete</QBtn>
         </div>
     </div>
 </template>
