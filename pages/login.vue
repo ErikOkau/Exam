@@ -6,6 +6,7 @@ const email = ref('')
 const password = ref('')
 const router = useRouter()
 
+// Login
 async function onSubmit() {
     const response = await fetch('/api/auth/login', {
         method: 'POST',

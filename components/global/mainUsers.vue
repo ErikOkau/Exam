@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { type Article } from '@prisma/client';
+import { type User } from '@prisma/client';
+
 
 // Highlight search
 const props = defineProps<{
-  article: Article;
+  user: User;
   search: string
 }>();
 
 // Highlight search
 const titleEl = computed(() => {
-    const title = props.article.title;
+    const title = props.user.email;
 
     const { html, isMatch } = highlightSearch(title, props.search);
 
@@ -30,7 +31,7 @@ const show = ref(true)
 <template>
 <div v-show="show" class="q-mt-md">
     <div v-html="titleEl" style="font-size: 1.75rem; color: blue; "></div>
-    <div style="font-size: 1.2rem;">{{ article.content }}</div>
+    <div style="font-size: 1.2rem;">{{ user.role }}</div>
 </div>
 </template>
 

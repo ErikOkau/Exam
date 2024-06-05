@@ -57,7 +57,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     
     const allowedRoutes = rolePages[res.role]
 
-    // If the user is not allowed to access the page, redirect to the home page
+    // If the user role is not found, redirect to login
     const fromNoAuthCheck = noAuthPages.find((path) => {
         if (typeof path === "string") {
        return from.path === path

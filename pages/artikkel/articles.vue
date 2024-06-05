@@ -3,6 +3,7 @@ import type { Article } from '@prisma/client';
 const search = ref()
 const articles = ref<Article[]>([])
 
+// Fetch all articles
 onMounted(async () => {
     const response = await $fetch('/api/article/allArticles')
 
@@ -13,8 +14,7 @@ onMounted(async () => {
 
 const loggedIn = ref(false)
 
-const router = useRouter()
-
+// Check if user is logged in
 onMounted(async () => {
     const response = await $fetch('/api/auth/decrypt', {
         method: 'GET',
@@ -29,6 +29,7 @@ onMounted(async () => {
     }
 })
 
+// Delete article
 async function deleteArticle(articleId: any) {  
     const response = await fetch(`/api/article/deleteArticle`, {
         method: 'DELETE',

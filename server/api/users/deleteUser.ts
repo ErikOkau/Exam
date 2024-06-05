@@ -1,16 +1,16 @@
 import { prisma } from "~/server/server"
 
-// Delete a user
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
-    const deleteResult = await prisma.user.delete({
+    const deleteUser = await prisma.user.delete({
         where: {
-            id: body.id,
+            id: body.id
+            
         }
     })
 
-    if (!deleteResult) {
+    if (!deleteUser) {
         return { status: 404, msg: "User not found"}
     }
 
