@@ -20,20 +20,20 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
 
-  role      Role     
+  role Role
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Article {
-  id        String   @id @default(cuid())
-  title     String
-  content   String   
+  id      String @id @default(cuid())
+  title   String
+  content String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

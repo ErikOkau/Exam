@@ -11,7 +11,25 @@ onMounted(async () => {
     articles.value = response.articles as Article[]
 })
 
-async function deleteArticle(articleId: any) {
+const loggedIn = ref(false)
+
+const router = useRouter()
+
+onMounted(async () => {
+    const response = await $fetch('/api/auth/decrypt', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    if (response.status === 200) {
+        loggedIn.value = true
+    } else {
+        loggedIn.value = false
+    }
+})
+
+async function deleteArticle(articleId: any) {  
     const response = await fetch(`/api/article/deleteArticle`, {
         method: 'DELETE',
         headers: {
@@ -24,10 +42,26 @@ async function deleteArticle(articleId: any) {
     if (response.ok) {
         articles.value = articles.value.filter(article => article.id !== articleId)
     } else {
-        // Handle error
+        console.log('Error deleting article')
     }
 }
 
+async function updateArticle(articleId: any) {
+    const response = await fetch(`/api/article/updateArticle`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: articleId
+        })
+    })
+    if (response.ok) {
+        articles.value = articles.value.filter(article => article.id !== articleId)
+    } else {
+        console.log('Error updating article')
+    }
+}
 
 
 </script>
@@ -43,7 +77,7 @@ async function deleteArticle(articleId: any) {
             
                 style="min-width: 50rem;" />
 
-            <QBtn dense style="max-height: 2.5rem; margin-top: 2rem;" @click="deleteArticle(article.id)">Delete</QBtn>
+            <QBtn v-if="loggedIn" dense style="max-height: 2.5rem; margin-top: 2rem;" @click="deleteArticle(article.id)">Delete</QBtn>
         </div>
     </div>
 </template>

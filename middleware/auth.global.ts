@@ -52,11 +52,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         msg: string
         role: Role
     }
-    if (res.status !== 200) return navigateTo("/")
+    if (res.status !== 200) return navigateTo("/login")
+    
+    
     const allowedRoutes = rolePages[res.role]
 
-
-    
     // If the user is not allowed to access the page, redirect to the home page
     const fromNoAuthCheck = noAuthPages.find((path) => {
         if (typeof path === "string") {

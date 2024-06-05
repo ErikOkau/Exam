@@ -29,7 +29,6 @@ const show = ref(true)
 <div v-show="show" class="q-mt-md">
     <div v-html="titleEl" style="font-size: 1.75rem; color: blue; "></div>
     <div style="font-size: 1.2rem;">{{ article.content }}</div>
-
 </div>
 </template>
 
