@@ -66,7 +66,6 @@ async function confirmPostArticle() {
                     </QCardActions>
                 </QCard>
             </QDialog>
-
         </template>
     </QInput>
 
