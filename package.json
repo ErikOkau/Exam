@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@prisma/client": "^5.14.0",
+    "@prisma/client": "^5.22.0",
     "@quasar/extras": "^1.16.11",
     "axios": "^1.7.2",
     "crypto": "^1.0.1",
